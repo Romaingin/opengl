@@ -7,7 +7,7 @@ void CGameEngine::Init(const char* title, int width, int height,
 						 int bpp, bool fullscreen)
 {
 	int flags = 0;
-/*
+	
 	// initialize SDL
 	SDL_Init(SDL_INIT_VIDEO);
 
@@ -23,7 +23,7 @@ void CGameEngine::Init(const char* title, int width, int height,
 
 	m_fullscreen = fullscreen;
 	m_running = true;
-*/
+
 	printf("CGameEngine Init\n");
 }
 
@@ -34,7 +34,6 @@ void CGameEngine::Cleanup()
 		states.back()->Cleanup();
 		states.pop_back();
 	}
-/*
 	// switch back to windowed mode so other 
 	// programs won't get accidentally resized
 	if ( m_fullscreen ) {
@@ -44,7 +43,7 @@ void CGameEngine::Cleanup()
 	printf("CGameEngine Cleanup\n");
 
 	// shutdown SDL
-	SDL_Quit();*/
+	SDL_Quit();
 }
 
 void CGameEngine::ChangeState(CGameState* state) 

@@ -1,27 +1,27 @@
 #include "../includes/main.h"
 
-
 int main ( int argc, char *argv[] )
 {
-  CGameEngine game;
+	CGameEngine game;
 
-  // initialize the engine
-  game.Init( "Engine Test v1.0" );
+	// initialize the engine
+	game.Init("Engine");
 
-  // load the intro
-  game.ChangeState( CIntroState::Instance() );
 
-  // main loop
-  while ( game.Running() )
-  {
-    game.HandleEvents();
-    game.Update();
-    game.Draw();
-  }
+	// load the intro
+	game.ChangeState(CIntroState::Instance());
 
-  // cleanup the engine
-  game.Cleanup();
-  return 0;
+	// main loop
+	while (game.Running())
+	{
+	game.HandleEvents();
+	game.Update();
+	game.Draw();
+	}
+
+	// cleanup the engine
+	game.Cleanup();
+	return 0;
 }
 
 /*
@@ -48,13 +48,5 @@ void init (void)
 
 int main(int argc, char** argv)
 {
-	glutInit(&argc, argv);
-	glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB);
-	glutInitWindowSize(250, 250);
-	glutInitWindowPosition(100, 100);
-	glutCreateWindow("hello");
-	init();
-	glutDisplayFunc(display);
-	glutMainLoop();
-	return 0;
+	
 }*/

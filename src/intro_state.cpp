@@ -1,15 +1,20 @@
 #include <stdio.h>
+#include <fstream>
+#include <iostream>
 
 #include "../includes/game_engine.h"
 #include "../includes/game_state.h"
 #include "../includes/intro_state.h"
+#include "../includes/play_state.h"
 
 CIntroState CIntroState::m_IntroState;
 
 void CIntroState::Init()
 {
-	/*
-	SDL_Surface* temp = SDL_LoadBMP("intro.bmp");
+	ifstream ifile("res/intro.bmp");
+	std::cout << "bool " << ifile << std::endl;
+	
+	SDL_Surface* temp = SDL_LoadBMP("res/intro.bmp");
 
 	bg = SDL_DisplayFormat(temp);
 
@@ -28,16 +33,15 @@ void CIntroState::Init()
 	alpha = 255;
 
 	SDL_SetAlpha(fader, SDL_SRCALPHA, alpha);
-*/
+
 	printf("CIntroState Init\n");
 }
 
 void CIntroState::Cleanup()
 {
-	/*
 	SDL_FreeSurface(bg);
 	SDL_FreeSurface(fader);
-*/
+
 	printf("CIntroState Cleanup\n");
 }
 
@@ -53,15 +57,46 @@ void CIntroState::Resume()
 
 void CIntroState::HandleEvents(CGameEngine* game)
 {
-	//Events
+	SDL_Event event;
+
+	if (SDL_PollEvent(&event)) {
+		switch (event.type) {
+			case SDL_QUIT:
+				game->Quit();
+				break;
+
+			case SDL_KEYDOWN:
+				switch (event.key.keysym.sym) {
+					case SDLK_SPACE:
+						game->ChangeState( CPlayState::Instance() );
+						break;
+
+					case SDLK_ESCAPE:
+						game->Quit();
+						break;
+				}
+				break;
+		}
+	}
 }
 
 void CIntroState::Update(CGameEngine* game) 
 {
-	//Update
+	alpha--;
+
+	if (alpha < 0)
+		alpha = 0;
+
+	SDL_SetAlpha(fader, SDL_SRCALPHA, alpha);
 }
 
 void CIntroState::Draw(CGameEngine* game) 
 {
-	//Draw
+	SDL_BlitSurface(bg, NULL, game->screen, NULL);
+
+	// no need to blit if it's transparent
+	if ( alpha != 0 )
+		SDL_BlitSurface(fader, NULL, game->screen, NULL);
+
+	SDL_UpdateRect(game->screen, 0, 0, 0, 0);
 }
