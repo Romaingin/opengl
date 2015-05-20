@@ -1,10 +1,10 @@
 #include <stdio.h>
+#include <iostream>
 
 #include "../includes/game_engine.h"
 #include "../includes/game_state.h"
 
-void CGameEngine::Init(const char* title, int width, int height, 
-						 int bpp, bool fullscreen)
+void CGameEngine::Init(const char* title)
 {
 	int flags = 0;
 	
@@ -14,16 +14,14 @@ void CGameEngine::Init(const char* title, int width, int height,
 	// set the title bar text
 	SDL_WM_SetCaption(title, title);
 
-	if ( fullscreen ) {
+	if ( m_fullscreen ) {
 		flags = SDL_FULLSCREEN;
 	}
-
+	
 	// create the screen surface
-	screen = SDL_SetVideoMode(width, height, bpp, flags);
-
-	m_fullscreen = fullscreen;
+	screen = SDL_SetVideoMode(m_width, m_height, 0, flags);
 	m_running = true;
-
+	
 	printf("CGameEngine Init\n");
 }
 
@@ -56,7 +54,7 @@ void CGameEngine::ChangeState(CGameState* state)
 
 	// store and init the new state
 	states.push_back(state);
-	states.back()->Init();
+	states.back()->Init(this);
 }
 
 void CGameEngine::PushState(CGameState* state)
@@ -68,7 +66,7 @@ void CGameEngine::PushState(CGameState* state)
 
 	// store and init the new state
 	states.push_back(state);
-	states.back()->Init();
+	states.back()->Init(this);
 }
 
 void CGameEngine::PopState()

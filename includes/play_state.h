@@ -7,7 +7,7 @@
 class CPlayState : public CGameState
 {
 public:
-	void Init();
+	void Init(CGameEngine* game);
 	void Cleanup();
 
 	void Pause();

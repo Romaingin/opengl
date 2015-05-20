@@ -8,7 +8,7 @@
 
 CPlayState CPlayState::m_PlayState;
 
-void CPlayState::Init()
+void CPlayState::Init(CGameEngine* game)
 {
 	SDL_Surface* temp = SDL_LoadBMP("res/play.bmp");
 

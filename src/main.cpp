@@ -3,10 +3,13 @@
 int main ( int argc, char *argv[] )
 {
 	CGameEngine game;
-
+	
 	// initialize the engine
+	game.SetFullscreen(false);
+	game.SetScreenWidth(640);
+	game.SetScreenHeight(480);
+	
 	game.Init("Engine");
-
 
 	// load the intro
 	game.ChangeState(CIntroState::Instance());

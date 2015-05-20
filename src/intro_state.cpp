@@ -9,11 +9,8 @@
 
 CIntroState CIntroState::m_IntroState;
 
-void CIntroState::Init()
-{
-	ifstream ifile("res/intro.bmp");
-	std::cout << "bool " << ifile << std::endl;
-	
+void CIntroState::Init(CGameEngine* game)
+{	
 	SDL_Surface* temp = SDL_LoadBMP("res/intro.bmp");
 
 	bg = SDL_DisplayFormat(temp);

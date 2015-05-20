@@ -11,9 +11,7 @@ class CGameState;
 class CGameEngine
 {
 public:
-
-	void Init(const char* title, int width=640, int height=480, 
-			  int bpp=0, bool fullscreen=false);
+	void Init(const char* title);
 	void Cleanup();
 
 	void ChangeState(CGameState* state);
@@ -24,7 +22,16 @@ public:
 	void Update();
 	void Draw();
 
+	// Getters
 	bool Running() { return m_running; }
+	bool GetFullscreen() { return m_fullscreen; }
+	int GetScreenWidth() { return m_width; }
+	int GetScreenHeight() { return m_height; }
+	
+	// Setters
+	void SetFullscreen(bool val) { m_fullscreen = val; }
+	void SetScreenWidth(int val) { m_width = val; }
+	void SetScreenHeight(int val) { m_height = val; }
 	void Quit() { m_running = false; }
 
 	SDL_Surface* screen;
@@ -35,6 +42,8 @@ private:
 
 	bool m_running;
 	bool m_fullscreen;
+	int m_width;
+	int m_height;
 };
 
 #endif
