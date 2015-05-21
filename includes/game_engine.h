@@ -3,6 +3,8 @@
 
 #include <vector>
 #include <SDL/SDL.h>
+#include <GL/gl.h>
+#include <GL/glu.h>
 
 using namespace std;
 

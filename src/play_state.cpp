@@ -10,12 +10,6 @@ CPlayState CPlayState::m_PlayState;
 
 void CPlayState::Init(CGameEngine* game)
 {
-	SDL_Surface* temp = SDL_LoadBMP("res/play.bmp");
-
-	bg = SDL_DisplayFormat(temp);
-
-	SDL_FreeSurface(temp);
-
 	printf("CPlayState Init\n");
 }
 
@@ -67,7 +61,6 @@ void CPlayState::Update(CGameEngine* game)
 
 void CPlayState::Draw(CGameEngine* game)
 {
-	SDL_BlitSurface(bg, NULL, game->screen, NULL);
-	SDL_UpdateRect(game->screen, 0, 0, 0, 0);
+	
 }
 

@@ -6,39 +6,17 @@
 #include "../includes/game_state.h"
 #include "../includes/intro_state.h"
 #include "../includes/play_state.h"
+#include "../includes/time_manager.h"
 
 CIntroState CIntroState::m_IntroState;
 
 void CIntroState::Init(CGameEngine* game)
 {	
-	SDL_Surface* temp = SDL_LoadBMP("res/intro.bmp");
-
-	bg = SDL_DisplayFormat(temp);
-
-	SDL_FreeSurface(temp);
-
-	// create the fader surface like the background with alpha
-	fader = SDL_CreateRGBSurface( SDL_SRCALPHA, bg->w, bg->h, 
-								  bg->format->BitsPerPixel, 
-								  bg->format->Rmask, bg->format->Gmask, 
-								  bg->format->Bmask, bg->format->Amask );
-
-	// fill the fader surface with black
-	SDL_FillRect (fader, NULL, SDL_MapRGB (bg->format, 0, 0, 0)) ;
-
-	// start off opaque
-	alpha = 255;
-
-	SDL_SetAlpha(fader, SDL_SRCALPHA, alpha);
-
 	printf("CIntroState Init\n");
 }
 
 void CIntroState::Cleanup()
 {
-	SDL_FreeSurface(bg);
-	SDL_FreeSurface(fader);
-
 	printf("CIntroState Cleanup\n");
 }
 
@@ -79,21 +57,25 @@ void CIntroState::HandleEvents(CGameEngine* game)
 
 void CIntroState::Update(CGameEngine* game) 
 {
-	alpha--;
-
-	if (alpha < 0)
-		alpha = 0;
-
-	SDL_SetAlpha(fader, SDL_SRCALPHA, alpha);
+	TimeManager::Instance().CalculateFrameRate(true);
 }
 
 void CIntroState::Draw(CGameEngine* game) 
 {
-	SDL_BlitSurface(bg, NULL, game->screen, NULL);
-
-	// no need to blit if it's transparent
-	if ( alpha != 0 )
-		SDL_BlitSurface(fader, NULL, game->screen, NULL);
-
-	SDL_UpdateRect(game->screen, 0, 0, 0, 0);
+	glClear(GL_COLOR_BUFFER_BIT);
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	gluOrtho2D(0.0, (GLdouble)game->GetScreenWidth(), 0.0, (GLdouble)game->GetScreenHeight());
+	glDisable(GL_DEPTH_TEST);
+	
+	glColor4f(0,0,0,0.5);
+	glBegin(GL_QUADS);
+		glVertex2f(0, 400);
+		glVertex2f(0, 0);
+		glVertex2f(600, 0);
+		glVertex2f(600, 400);
+	glEnd();
+	
+	glFlush();
+	SDL_GL_SwapBuffers();
 }

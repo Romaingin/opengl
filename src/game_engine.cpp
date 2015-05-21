@@ -3,6 +3,7 @@
 
 #include "../includes/game_engine.h"
 #include "../includes/game_state.h"
+#include "../includes/time_manager.h"
 
 void CGameEngine::Init(const char* title)
 {
@@ -19,7 +20,11 @@ void CGameEngine::Init(const char* title)
 	}
 	
 	// create the screen surface
-	screen = SDL_SetVideoMode(m_width, m_height, 0, flags);
+	screen = SDL_SetVideoMode(m_width, m_height, 0, SDL_OPENGL | flags);
+	
+	glClearColor(1.0, 1.0, 1.0, 1.0);
+	glViewport(0, 0, m_width, m_height);
+	
 	m_running = true;
 	
 	printf("CGameEngine Init\n");

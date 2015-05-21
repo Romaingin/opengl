@@ -17,9 +17,9 @@ int main ( int argc, char *argv[] )
 	// main loop
 	while (game.Running())
 	{
-	game.HandleEvents();
-	game.Update();
-	game.Draw();
+		game.HandleEvents();
+		game.Update();
+		game.Draw();
 	}
 
 	// cleanup the engine
