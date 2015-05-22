@@ -22,18 +22,13 @@ public:
 	Model()		{ }
 	~Model()	{ Destroy(); }
 
-	void Initialize(Vertex3 vertices[], int length, std::string strVertex, std::string strFragment);
+	void Initialize(GLfloat *vertices, GLuint *indices, int size_of_vertices, int size_of_indices, std::string strVertex, std::string strFragment);
 	void Render();
 	void Destroy();
 
 private:
 	GLuint CubeBuffers[2];
 	GLuint indexBuffer;
-	
-	Vertex3 *Vertices;
-	GLint VerticesLength;
-	GLuint VertexBufferId;
-	GLuint VertexArrayObjectId;
 	
 	Shader m_Shader;						
 };
