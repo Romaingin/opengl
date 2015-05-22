@@ -21,9 +21,9 @@ void CGameEngine::Init(const char* title)
 	
 	// create the screen surface
 	screen = SDL_SetVideoMode(m_width, m_height, 0, SDL_OPENGL | flags);
-	
-	glClearColor(1.0, 1.0, 1.0, 1.0);
-	glViewport(0, 0, m_width, m_height);
+		
+	//glClearColor(1.0, 1.0, 1.0, 1.0);
+	//glViewport(0, 0, m_width, m_height);
 	
 	m_running = true;
 	

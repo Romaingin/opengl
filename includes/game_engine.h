@@ -2,9 +2,11 @@
 #define GAMEENGINE_H
 
 #include <vector>
-#include <SDL/SDL.h>
+#include <GL/glew.h>
 #include <GL/gl.h>
+#include <SDL/SDL.h>
 #include <GL/glu.h>
+#include <GL/glut.h>
 
 using namespace std;
 

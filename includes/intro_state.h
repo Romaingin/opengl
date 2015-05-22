@@ -24,6 +24,7 @@ protected:
 	CIntroState() { }
 
 private:
+	int angle;
 	static CIntroState m_IntroState;
 	
 	SDL_Surface* bg;
