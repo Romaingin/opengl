@@ -111,7 +111,6 @@ void CIntroState::Draw(CGameEngine* game)
 	
 	g_Cube.Render();
 	angle++;
-	
 
 	glFlush();
 	SDL_GL_SwapBuffers();

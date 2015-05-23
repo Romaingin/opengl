@@ -23,26 +23,26 @@ void Model::Initialize(GLfloat *vertices, GLuint *indices, int size_of_vertices,
 
 void Model::Render()
 {
-	m_Shader.TurnOn();
+	//m_Shader.TurnOn();
 	
 	// Utilisation des données des buffers
 	glBindBuffer(GL_ARRAY_BUFFER, CubeBuffers[0]);
 	glVertexPointer( 3, GL_FLOAT, 6 * sizeof(float), ((float*)NULL + (3)) );
-	glColorPointer( 3, GL_FLOAT, 6 * sizeof(float), 0 );
+	//glColorPointer( 3, GL_FLOAT, 6 * sizeof(float), 0 );
 
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, CubeBuffers[1]);
 
 	// Activation d'utilisation des tableaux
 	glEnableClientState( GL_VERTEX_ARRAY );
-	glEnableClientState( GL_COLOR_ARRAY );
-
+	//glEnableClientState( GL_COLOR_ARRAY );
+	glColor4f(0.5, 0.5, 0.5, 1.0);
 	// Rendu de notre géométrie
 	glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
 
-	glDisableClientState( GL_COLOR_ARRAY );
+	//glDisableClientState( GL_COLOR_ARRAY );
 	glDisableClientState( GL_VERTEX_ARRAY );
 	
-	m_Shader.TurnOff();
+	//m_Shader.TurnOff();
 }
 
 

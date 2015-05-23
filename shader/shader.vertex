@@ -1,11 +1,12 @@
-#version 400
-
-layout(location=0) in vec4 in_Position;
-layout(location=1) in vec4 in_Color;
-out vec4 frag_Color;
+uniform float Scale;
 
 void main(void)
 {
-	gl_Position = in_Position;
-	frag_Color = in_Color;
+   vec4 a = gl_Vertex;
+   a.x = a.x * Scale;
+   a.y = a.y * Scale;
+
+
+   gl_Position = gl_ModelViewProjectionMatrix * a;
+
 }

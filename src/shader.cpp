@@ -1,3 +1,7 @@
+#include <stdio.h>
+#include <fstream>
+#include <iostream>
+
 #include "../includes/game_engine.h"
 #include "../includes/shader.h"
 
@@ -17,7 +21,6 @@ std::string Shader::LoadShaderFile(std::string strFile)
 	}
 
 	fin.close();
-
 	return strText;
 }
 
@@ -54,7 +57,25 @@ void Shader::Initialize(std::string strVertexFile, std::string strFragmentFile)
 	glAttachShader(ShaderProgramId, FragmentShaderId);
 
 	glLinkProgram(ShaderProgramId);
+	glUseProgram(ShaderProgramId);
+	
+	// Passing Uniform variables to the shader
+	GLint gScale = glGetUniformLocation(ShaderProgramId, "Scale");
+	if (gScale != -1)
+	{
+	   glUniform1f(gScale, 0.12);
+	}
+	
+	GLint gColor = glGetUniformLocation(ShaderProgramId, "Color");
+	
+	if (gColor != -1)
+	{
+		float Color[4] = {1.0f, 0.5f, 0.5f, 1.0f};
+		glUniform4fv(gColor, 1, Color);
+	}
 
+	glUseProgram(0);
+	
 	ErrorCheckValue = glGetError();
 
 	if ( ErrorCheckValue != GL_NO_ERROR )
