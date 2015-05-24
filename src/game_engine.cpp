@@ -4,6 +4,9 @@
 #include "../includes/game_engine.h"
 #include "../includes/game_state.h"
 #include "../includes/time_manager.h"
+#include "../includes/keyboard.h"
+
+KeyboardHandler g_keyHandler;
 
 void CGameEngine::Init(const char* title)
 {

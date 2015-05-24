@@ -7,10 +7,13 @@
 #include "../includes/intro_state.h"
 #include "../includes/play_state.h"
 #include "../includes/time_manager.h"
+#include "../includes/camera.h"
 #include "../includes/model.h"
+#include "../includes/keyboard.h"
 
 CIntroState CIntroState::m_IntroState;
 Model g_Cube;
+CCamera g_Camera;
 
 void CIntroState::Init(CGameEngine* game)
 {
@@ -36,6 +39,8 @@ void CIntroState::Init(CGameEngine* game)
 	};
 	
 	g_Cube.Initialize(vertices, indices, sizeof(vertices), sizeof(indices), "shader/shader.vertex", "shader/shader.fragment");
+	g_Camera.PositionCamera(0, 1.5f, 6,   0, 1.5f, 0,   0, 1, 0);
+	
 	glClearColor(1.0, 1.0, 1.0, 1.0);
 	glEnable(GL_DEPTH_TEST);
 	glDepthFunc(GL_LEQUAL);
@@ -73,16 +78,11 @@ void CIntroState::HandleEvents(CGameEngine* game)
 				break;
 
 			case SDL_KEYDOWN:
-				switch (event.key.keysym.sym) {
-					case SDLK_SPACE:
-						game->ChangeState( CPlayState::Instance() );
-						break;
-
-					case SDLK_ESCAPE:
-						game->Quit();
-						break;
-				}
-				break;
+				g_keyHandler.handleKeyboardEvent(event.key.keysym.sym, true);
+            	break;
+			case SDL_KEYUP:
+				g_keyHandler.handleKeyboardEvent(event.key.keysym.sym, false);
+            	break;
 		}
 	}
 }
@@ -91,6 +91,36 @@ void CIntroState::Update(CGameEngine* game)
 {
 	TimeManager::Instance().CalculateFrameRate(true);
 }
+
+
+
+/////// Delete
+void Draw3DSGrid()
+{
+	glColor3ub(0, 255, 0);
+
+	// Draw a 1x1 grid along the X and Z axis'
+	for(float i = -50; i <= 50; i += 1)
+	{
+		// Start drawing some lines
+		glBegin(GL_LINES);
+
+			// Do the horizontal lines (along the X)
+			glVertex3f(-50, 0, i);
+			glVertex3f(50, 0, i);
+
+			// Do the vertical lines (along the Z)
+			glVertex3f(i, 0, -50);
+			glVertex3f(i, 0, 50);
+
+		// Stop drawing lines
+		glEnd();
+	}
+}
+
+
+
+
 
 void CIntroState::Draw(CGameEngine* game) 
 {
@@ -102,11 +132,11 @@ void CIntroState::Draw(CGameEngine* game)
 	
 	glLoadIdentity();
 
-	gluLookAt(0.0, 0.0, 5.0,
-			  0.0, 0.0, 0.0,
-			  0.0, 1.0, 0.0);
-	
-	glRotatef(angle,1.0f, 5.0f, 1.0f );
+	gluLookAt(g_Camera.m_vPosition.x, g_Camera.m_vPosition.y,  g_Camera.m_vPosition.z,	
+			  g_Camera.m_vView.x,	  g_Camera.m_vView.y,      g_Camera.m_vView.z,	
+			  g_Camera.m_vUpVector.x, g_Camera.m_vUpVector.y,  g_Camera.m_vUpVector.z);
+	Draw3DSGrid();
+	//glRotatef(angle,1.0f, 5.0f, 1.0f );
 	//gluOrtho2D(0.0, (GLdouble)game->GetScreenWidth(), 0.0, (GLdouble)game->GetScreenHeight());
 	
 	g_Cube.Render();
