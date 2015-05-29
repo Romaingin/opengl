@@ -7,6 +7,7 @@
 #include <SDL/SDL.h>
 #include <GL/glu.h>
 #include <GL/glut.h>
+#include <math.h>
 
 using namespace std;
 

@@ -6,8 +6,8 @@ int main ( int argc, char *argv[] )
 	
 	// initialize the engine
 	game.SetFullscreen(false);
-	game.SetScreenWidth(640);
-	game.SetScreenHeight(480);
+	game.SetScreenWidth(1280);
+	game.SetScreenHeight(720);
 	
 	game.Init("Engine");
 	

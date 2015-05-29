@@ -15,21 +15,21 @@ double TimeManager::CalculateFrameRate(bool writeToConsole = false)
 	DeltaTime = CurrentTime - lastTime;
 	lastTime = CurrentTime;
 	++framesPerSecond;
-	
-	/*
+
+
 	if ( CurrentTime - startTime > 1.0f )
 	{
 		startTime = CurrentTime;
 
 		if ( writeToConsole )
 			fprintf(stderr, "Current Frames Per Second: %d\n", int(framesPerSecond));
-		
+
 		currentFPS = framesPerSecond;
 
 		framesPerSecond = 0;
 	}
-	*/
-	
+
+
 	return currentFPS;
 }
 

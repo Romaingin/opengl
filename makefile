@@ -10,7 +10,9 @@ all:
 	g++ -c src/model.cpp -std=c++0x
 	g++ -c src/shader.cpp -std=c++0x
 	g++ -c src/camera.cpp -std=c++0x
-	g++ -o App main.o game_engine.o intro_state.o play_state.o menu_state.o time_manager.o model.o shader.o camera.o -W -Wall -pedantic -lSDL -lglut -lGL -lGLU -lGLEW
+	g++ -c src/inputs.cpp -std=c++0x
+	g++ -c src/math.cpp -std=c++0x
+	g++ -o App main.o game_engine.o intro_state.o play_state.o menu_state.o time_manager.o model.o shader.o camera.o inputs.o -W -Wall -pedantic -lSDL -lglut -lGL -lGLU -lGLEW
 
 clean:
 	rm *.o
